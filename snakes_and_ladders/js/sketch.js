@@ -49,6 +49,9 @@ function setup() {
 	board.addLadder( new Ladder(board.tiles[12], board.tiles[20]) );
 	board.addLadder( new Ladder(board.tiles[1], board.tiles[6]) );
 
+	board.addSnake( new Snake(board.tiles[16], board.tiles[5]) );
+	board.addSnake( new Snake(board.tiles[11], board.tiles[0]) );
+
 
 
     player = new Player(tiles[0]);

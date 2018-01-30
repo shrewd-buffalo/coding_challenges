@@ -4,6 +4,7 @@ function Board(width, height, tiles) {
     this.height = height;
     this.tiles = tiles;
     this.ladders = [];
+    this.snakes = [];
 
 	this.render = function () {
         for( var i=0; i<this.tiles.length; i++)
@@ -14,12 +15,20 @@ function Board(width, height, tiles) {
         {
             this.ladders[i].render();
         }
+        for( var i=0; i<this.snakes.length; i++)
+        {
+            this.snakes[i].render();
+        }
 	}
 
 	this.addLadder = function( ladder )
 	{
-//	     push(this.ladders, ladder);
 	     append(this.ladders, ladder);
+	}
+
+	this.addSnake = function( snake )
+	{
+	     append(this.snakes, snake);
 	}
 
 
