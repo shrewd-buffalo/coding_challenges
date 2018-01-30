@@ -7,6 +7,7 @@ var board;
 var players;
 var player;
 
+
 function setup() {
 	// setup code
 	createCanvas(boardWidth, boardHeight);
@@ -15,21 +16,42 @@ function setup() {
 	var numTiles = (boardWidth / tileSize) * (boardHeight / tileSize);
 	var row = 0;
     var col = 0;
+    var numCols = floor( boardWidth / tileSize);
+    var numRows = floor( boardHeight / tileSize);
 
     var tileId = 0;
+    var reverse = false;
 	for( var i=0; i<numTiles; i++)
 	{
-	    if((col * tileSize) > (boardWidth - tileSize))
+	    // Going off to the right, change direction on next row
+	    if(col > numCols-1)
 	    {
-	        col=0;
+	        col--;
+	        reverse = true;
 	        row++;
 	    }
+	    // Going off to the left, change direction on next row
+	    else if(col < 0)
+	    {
+	        col++;
+	        reverse = false;
+	        row++;
+	    }
+	    console.log(row + "," + col);
 	    tiles[i] = createTile(tileId, row, col);
 	    tileId++;
-	    col++;
+	    // Work our direction to move columns
+	    reverse ? col-- : col++;
 	}
-	board = new Board( boardWidth, boardHeight, tiles);
-	player = new Player(tiles[0]);
+
+    board = new Board( boardWidth, boardHeight, tiles);
+
+	board.addLadder( new Ladder(board.tiles[12], board.tiles[20]) );
+	board.addLadder( new Ladder(board.tiles[1], board.tiles[6]) );
+
+
+
+    player = new Player(tiles[0]);
 }
 
 function draw() {
@@ -38,8 +60,6 @@ function draw() {
 	clear();
     background(255);
 	board.render();
-
-	//
 
 	if( !player.finished)
 	{
