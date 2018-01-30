@@ -26,7 +26,7 @@ function Ladder(srcTile, destTile)
 
     this.drawLadder = function(width, height)
     {
-        var sep = 4;
+        var sep = 10;
         var numRungs = floor(height/sep);
 
         line(0, 0, 0, height);
