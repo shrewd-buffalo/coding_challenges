@@ -3,8 +3,10 @@ function Snake( srcTile, destTile)
 
     this.srcTile = srcTile;
     this.destTile = destTile;
+	this.srcTile.setSnake( this );
+	this.topOffset = 15;
 
-    console.log("Placing snake from " + srcTile.id + " to " + destTile.id);
+    console.log("Placing snake from " + (srcTile.id + 1) + " to " + (destTile.id + 1));
     this.offset = srcTile.size / 2 ;
     this.distance = int(dist(srcTile.x, srcTile.y, destTile.x, destTile.y));
 
@@ -13,7 +15,6 @@ function Snake( srcTile, destTile)
         this.drawSnake();
         this.drawSnakeHead();
     }
-
 
     this.drawSnake = function()
     {
@@ -34,7 +35,7 @@ function Snake( srcTile, destTile)
             pullFactor = -1;
         }
         translate( this.offset, this.offset);
-        bezier(this.srcTile.x, this.srcTile.y, this.srcTile.x + weight * pullFactor , this.srcTile.y - 20,  this.destTile.x - weight * pullFactor, this.destTile.y - 20, this.destTile.x , this.destTile.y);
+        bezier(this.srcTile.x, this.srcTile.y, this.srcTile.x + weight * pullFactor , this.srcTile.y - 20,  this.destTile.x - weight * pullFactor, this.destTile.y - 20, this.destTile.x , this.destTile.y - this.topOffset);
         pop();
     }
 
@@ -43,19 +44,20 @@ function Snake( srcTile, destTile)
         push();
         stroke(0);
         strokeWeight(3);
-        noFill();
+        fill(0);
 
-        translate( this.destTile.x + this.offset, this.destTile.y  + this.offset);
+        translate( this.destTile.x + this.offset, this.destTile.y  + this.offset - this.topOffset);
 
         if( this.destTile.x < this.srcTile.x)
         {
             angleMode(DEGREES);
             rotate(-270);
         }
+		var size = 4;
         triangle(
-            -10, 10,
-            10, - 10,
-            10, 10,
+            -size, size,
+            size, - size,
+            size, size,
         );
         pop();
     }

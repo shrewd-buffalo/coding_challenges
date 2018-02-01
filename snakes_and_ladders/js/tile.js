@@ -7,10 +7,32 @@ function Tile(id, row, col, x, y, size) {
     this.y = y;
     this.fillColour = ( id % 2 == 0) ? 200 : 150;
 
+	this.snake;
+	this.ladder;
+
 	this.render = function () {
 	    this.drawTile();
 	    this.addTileLabel();
+	}
 
+	this.setSnake = function( snake )
+	{
+		this.snake = snake;
+	}
+
+	this.hasSnake = function()
+	{
+		return this.snake !== undefined;
+	}
+
+	this.setLadder = function( ladder )
+	{
+		this.ladder = ladder;
+	}
+
+	this.hasLadder = function()
+	{
+		return this.ladder !== undefined;
 	}
 
 	this.drawTile = function()

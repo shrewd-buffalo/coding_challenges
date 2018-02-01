@@ -3,11 +3,13 @@ function Ladder(srcTile, destTile)
     this.srcTile = srcTile;
     this.destTile = destTile;
 
+	this.srcTile.setLadder( this );
+
     this.angle;
     this.distance
     this.ladderWidth = 10;
 
-    console.log("Placing ladder from " + srcTile.id + " to " + destTile.id);
+    console.log("Placing ladder from " +( srcTile.id + 1 ) + " to " + (destTile.id + 1 ));
     this.offset = srcTile.size / 2 ;
     this.distance = int(dist(srcTile.x, srcTile.y, destTile.x, destTile.y));
 

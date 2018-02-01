@@ -23,12 +23,12 @@ function Board(width, height, tiles) {
 
 	this.addLadder = function( ladder )
 	{
-	     append(this.ladders, ladder);
+	    append(this.ladders, ladder);
 	}
 
 	this.addSnake = function( snake )
 	{
-	     append(this.snakes, snake);
+	    append(this.snakes, snake);
 	}
 
 

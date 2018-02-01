@@ -1,5 +1,3 @@
-
-
 var tileSize = 100;
 var boardWidth = 500;
 var boardHeight = 500;
@@ -46,54 +44,37 @@ function setup() {
 
     board = new Board( boardWidth, boardHeight, tiles);
 
-	board.addLadder( new Ladder(board.tiles[12], board.tiles[20]) );
-	board.addLadder( new Ladder(board.tiles[1], board.tiles[6]) );
+	board.addLadder(new Ladder(board.tiles[12], board.tiles[20]));
+	board.addLadder(new Ladder(board.tiles[1], board.tiles[6]));
 
-	board.addSnake( new Snake(board.tiles[16], board.tiles[5]) );
-	board.addSnake( new Snake(board.tiles[11], board.tiles[0]) );
+	board.addSnake(new Snake(board.tiles[16], board.tiles[5]));
+	board.addSnake(new Snake(board.tiles[11], board.tiles[0]));
 
-
-
-    player = new Player(tiles[0]);
+    player = new Player(board);
 }
 
 function draw() {
 	// draw code
-	frameRate(1);
+	frameRate(5);
 	clear();
     background(255);
 	board.render();
-
-	if( !player.finished)
-	{
-        var move = floor( random(1,6) );
-        player.move( nextTile( player, move ) );
-	}
 	player.render();
 
+    if( frameCount % 2 == 0)
+    {
+        player.checkForLadderOrSnake();
+    }
+    else
+    {
+        var numMoves = floor( random(1,5) );
+	    player.move( numMoves );
+    }
 }
-
 
 function createTile( tileId, row, col)
 {
     var posx = col * tileSize;
     var posy = (boardHeight - row * tileSize) - tileSize;
     return new Tile( tileId, row, col, posx, posy, tileSize );
-}
-
-function nextTile( player, numMoved )
-{
-    var nextTile = player.tile.id + numMoved;
-    var maxTile = board.tiles.length - 1;
-    if( nextTile > maxTile)
-    {
-        nextTile = maxTile;
-        player.finish();
-        console.log("Player finished on tile " + (nextTile + 1));
-    }
-    else
-    {
-        console.log("Player on " + (player.tile.id + 1) + ", moving " + numMoved + ". Next tile " + (nextTile + 1));
-    }
-    return board.tiles[nextTile];
 }
